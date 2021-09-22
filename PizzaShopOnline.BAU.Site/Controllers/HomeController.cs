@@ -35,7 +35,7 @@ namespace PizzaShopOnline.BAU.Site.Controllers
             PizzaModel.Price = 20;
             PizzaModel.Name = "Margherita";
             PizzaModel.Size = PizzaSize.LARGE;
-            PizzaModel.BaseType = "Thin Crust";
+            PizzaModel.PizzaBase = BaseType.FLAT_BREAD_CRUST;
             PizzaModel.ToppingCount = new Dictionary<ToppingType, bool>()
             {
                 { ToppingType.EXTRA_CHEESE, false },
@@ -50,9 +50,16 @@ namespace PizzaShopOnline.BAU.Site.Controllers
         }
 
         [HttpPost]
-        public IActionResult SelectedPizza(PizzaModel PizzaModel)
+        public IActionResult SelectedPizza(PizzaModel PizzaModel, string submit)
         {
             // DB
+            PizzaModel.PizzaBasePrice = new Dictionary<BaseType, double>()
+            {
+                { BaseType.STUFFED_CRUST, 10.0 },
+                { BaseType.CRACKER_CRUST, 15.0 },
+                { BaseType.FLAT_BREAD_CRUST, 20.0 }
+            };
+
             PizzaModel.ToppingPrice = new Dictionary<ToppingType, double>()
             {
                 { ToppingType.EXTRA_CHEESE, 1.0 },
@@ -63,6 +70,7 @@ namespace PizzaShopOnline.BAU.Site.Controllers
             };
 
             var Price = PizzaModel.Price;
+            Price += PizzaModel.PizzaBasePrice[PizzaModel.PizzaBase];
             foreach( var Entry in PizzaModel.ToppingCount)
             {
                 if(Entry.Value == true)
@@ -70,9 +78,21 @@ namespace PizzaShopOnline.BAU.Site.Controllers
                     Price += PizzaModel.ToppingPrice[Entry.Key];  
                 }
             }
+            if (Price >= 20)
+            {
+                Price -= Price * 0.15;
+            }
             PizzaModel.Price = Price;
 
-            return View(PizzaModel);
+            if (submit == "Update pizza")
+            {
+                return View(PizzaModel);
+            }
+             else
+            {
+                return RedirectToAction("DeliveryForm","Delivery");
+            }
+           
         }
 
 

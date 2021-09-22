@@ -18,20 +18,28 @@
 
         @using (Html.BeginForm("SelectedPizza", "Home", FormMethod.Post))
         {
+
+            <p>
+                BaseType :
+                @Html.DropDownListFor(m => m.PizzaBase,
+                 new SelectList(Enum.GetValues(typeof(BaseType))), Model.PizzaBase);
+            </p>
+
             <p> Price </p>
             <p> @Model.Price </p>
 
             @Html.HiddenFor(m => m.Price);
 
-            <br/>
+            <br />
             @foreach (var Entry in Model.ToppingCount)
             {
-                @Html.Label(""+Entry.Key);
+                @Html.Label("" + Entry.Key);
                 @Html.CheckBoxFor(m => m.ToppingCount[Entry.Key]);
-                <br/>
+                <br />
             }
 
             <input type="submit" name="submit" value="Update pizza" />
+            <input type="submit" name="submit" value="Proceed to checkout page" />
         }
     </div>
 
