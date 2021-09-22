@@ -1,0 +1,83 @@
+﻿
+@{
+    Layout = null;
+}
+
+@model PizzaShopOnline.BAU.Site.Models.Delivery;
+
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Delivery Address Page</title>
+</head>
+
+<style>
+    .error{
+
+        color: red;
+        font-size:16px;
+    }
+
+    .container{
+        margin: auto auto;
+    }
+</style>
+
+
+
+<body>
+    <div class="container" style="width: 60%; margin-top: 2%; font-size: 20px;">
+    
+        @using (Html.BeginForm("DeliveryForm", "Delivery"))
+            {
+                
+                    <table cellpadding="8" cellspacing="8" border="0">
+
+                        <tr>
+                            <td>Toppings</td>
+                            <td>@Html.DropDownListFor(m => m.Toppings, new List<SelectListItem>
+                                {
+                                    new SelectListItem{Text="M"},
+                                    new SelectListItem{Text="N"}
+                                },"L", new { @class = "form-control" } )
+
+                            </td>
+                            
+                            <br />
+                            <td>@Html.ValidationMessageFor(m => m.Toppings ,"", new { @class = "error" } )</td>
+                        </tr>
+
+                        <tr>
+                            <td>Address</td>
+                            <td>@Html.TextBoxFor(m => m.Address)</td>
+                            <br />
+                            <td>@Html.ValidationMessageFor(m => m.Address , "" , new { @class = "error" })</td>
+                        </tr>
+
+                        <tr>
+                            <td>Name</td>
+                            <td>@Html.TextBoxFor(m => m.Name)</td>
+                            <br />
+                            <td>@Html.ValidationMessageFor(m => m.Name, "" , new { @class = "error" } )</td>
+                        </tr>
+
+                        <tr>
+                            <td>Telephone</td>
+                            <td>@Html.TextBoxFor(m => m.Telephone)</td>
+                            <td>@Html.ValidationMessageFor(m => m.Telephone , "" , new { @class = "error" })</td>
+                        </tr>
+
+                        <tr>
+                            <td>&nbsp;</td>
+                            <td colspan="2"><input type="submit" value="Submit" class="btn btn-primary" /></td>
+                        </tr>
+
+                    </table>
+                
+            }
+    </div>
+</body>
+</html>
