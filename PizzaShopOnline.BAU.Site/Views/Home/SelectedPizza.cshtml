@@ -3,51 +3,80 @@
     Layout = null;
 }
 
-
 <!DOCTYPE html>
 
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>Pizza Shop</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
 </head>
 <body>
 
     <div class="container">
-        <h1> Modify pizza </h1>
+        <h1 class="text-center"> Modify pizza </h1>
 
         @using (Html.BeginForm("SelectedPizza", "Home", FormMethod.Post))
         {
+            @Html.HiddenFor(m => m.Name);
+            @Html.HiddenFor(m => m.Size);
+            @Html.HiddenFor(m => m.TotalPrice);
+            @Html.HiddenFor(m => m.DiscountPrice);
+            @Html.HiddenFor(m => m.CurrentPizzaBasePrice);
+            @Html.HiddenFor(m => m.CurrentToppingPrice);
 
-            <p>
-                BaseType :
-                @Html.DropDownListFor(m => m.PizzaBase,
-                 new SelectList(Enum.GetValues(typeof(BaseType))), Model.PizzaBase);
-            </p>
+            <table class="table table-hover">
+                <tbody>
+                    <tr>
+                        <td>Name:</td>
+                        <td>@Model.Name</td>
+                    </tr>
+                    <tr>
+                        <td>Size:</td>
+                        <td>@Model.Size</td>
+                    </tr>
+                    <tr>
+                        <td>Base Type:</td>
+                        <td>
+                            @Html.ValidationMessageFor(model => model.PizzaBase, "", new { @class = "text-danger" })
+                            @Html.DropDownListFor(m => m.PizzaBase, new SelectList(Enum.GetValues(typeof(BaseType))), Model.PizzaBase)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Select Toppings:</td>
+                        <td>
+                            @foreach (var Entry in Model.ToppingList)
+                            {
+                                @Html.Label("" + Entry.Key);
+                                @:&nbsp;
+                                @Html.CheckBoxFor(m => m.ToppingList[Entry.Key]);
+                                <br />
+                            }
+                            @Html.ValidationMessageFor(model => model.ToppingList, "", new { @class = "text-danger" })
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Price:</td>
+                        <td>&pound; @Model.DiscountPrice</td>
+                    </tr>
 
-            <p> Price </p>
-            <p> @Model.Price </p>
+                    <tr>
+                        <td></td>
+                        <td>
+                            <input type="submit" class="btn btn-info" name="submit" value="Update pizza" />
+                        </td>
+                    </tr>
 
-            @Html.HiddenFor(m => m.Price);
-
-            <br />
-            @foreach (var Entry in Model.ToppingCount)
-            {
-                @Html.Label("" + Entry.Key);
-                @Html.CheckBoxFor(m => m.ToppingCount[Entry.Key]);
-                <br />
-            }
-
-            <input type="submit" name="submit" value="Update pizza" />
-            <input type="submit" name="submit" value="Proceed to checkout page" />
+                    <tr>
+                        <td></td>
+                        <td>
+                            <input type="submit" class="btn btn-primary" name="submit" value="Proceed to checkout page" />
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
         }
     </div>
 
-
-
-    <script>
-
-
-    </script>
 </body>
 </html>

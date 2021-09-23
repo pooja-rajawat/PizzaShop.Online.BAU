@@ -28,23 +28,48 @@ namespace PizzaShopOnline.BAU.Site.Controllers
             return View();
         }
 
+        [HttpGet]
         public IActionResult SelectedPizza()
         {
-            // DB
-            PizzaModel PizzaModel = new PizzaModel();
-            PizzaModel.Price = 20;
-            PizzaModel.Name = "Margherita";
-            PizzaModel.Size = PizzaSize.LARGE;
-            PizzaModel.PizzaBase = BaseType.FLAT_BREAD_CRUST;
-            PizzaModel.ToppingCount = new Dictionary<ToppingType, bool>()
+            //Previous Page
+            PizzaModel PizzaModel = new PizzaModel
             {
-                { ToppingType.EXTRA_CHEESE, false },
-                { ToppingType.ONIONS, false },
-                { ToppingType.BACON, false },
-                { ToppingType.MUSHROOMS, false },
-                { ToppingType.PEPPERONI, false },
+                Name = "Margherita",
+                Size = PizzaSize.LARGE,
+                PizzaBase = BaseType.FLAT_BREAD_CRUST,
+                ToppingList = new Dictionary<ToppingType, bool>()
+                {
+                    { ToppingType.EXTRA_CHEESE, false },
+                    { ToppingType.ONIONS, true },
+                    { ToppingType.BACON, false },
+                    { ToppingType.MUSHROOMS, false },
+                    { ToppingType.PEPPERONI, false },
+                },
+                ToppingPrice = new Dictionary<ToppingType, double>()
+                {
+                    { ToppingType.EXTRA_CHEESE, 1.0 },
+                    { ToppingType.ONIONS, 2.0 },
+                    { ToppingType.BACON, 3.0 },
+                    { ToppingType.MUSHROOMS, 4.0 },
+                    { ToppingType.PEPPERONI, 5.0 },
+                },
+                PizzaBasePrice = new Dictionary<BaseType, double>()
+                {
+                    { BaseType.STUFFED_CRUST, 10.0 },
+                    { BaseType.CRACKER_CRUST, 15.0 },
+                    { BaseType.FLAT_BREAD_CRUST, 20.0 }
+                },
+                TotalPrice = 32,
             };
-
+            PizzaModel.CurrentPizzaBasePrice = PizzaModel.PizzaBasePrice[PizzaModel.PizzaBase];
+            double ToppingPrice = 0;    
+            PizzaModel.ToppingList.Where(Topping => Topping.Value).ToList().ForEach(Entry =>
+            {
+                ToppingPrice += PizzaModel.ToppingPrice[Entry.Key];
+            });
+            PizzaModel.CurrentToppingPrice = ToppingPrice;
+            PizzaModel.DiscountPrice = PizzaModel.TotalPrice >= 20.0 ? (PizzaModel.TotalPrice - (PizzaModel.TotalPrice * 0.15)) : PizzaModel.TotalPrice;
+            PizzaModel.DiscountPrice = Math.Round(PizzaModel.DiscountPrice, 2);
 
             return View(PizzaModel);
         }
@@ -52,6 +77,11 @@ namespace PizzaShopOnline.BAU.Site.Controllers
         [HttpPost]
         public IActionResult SelectedPizza(PizzaModel PizzaModel, string submit)
         {
+            if (!ModelState.IsValid)
+            {
+                return View(PizzaModel);
+            }
+
             // DB
             PizzaModel.PizzaBasePrice = new Dictionary<BaseType, double>()
             {
@@ -59,7 +89,6 @@ namespace PizzaShopOnline.BAU.Site.Controllers
                 { BaseType.CRACKER_CRUST, 15.0 },
                 { BaseType.FLAT_BREAD_CRUST, 20.0 }
             };
-
             PizzaModel.ToppingPrice = new Dictionary<ToppingType, double>()
             {
                 { ToppingType.EXTRA_CHEESE, 1.0 },
@@ -69,20 +98,15 @@ namespace PizzaShopOnline.BAU.Site.Controllers
                 { ToppingType.PEPPERONI, 5.0 },
             };
 
-            var Price = PizzaModel.Price;
-            Price += PizzaModel.PizzaBasePrice[PizzaModel.PizzaBase];
-            foreach( var Entry in PizzaModel.ToppingCount)
+            var TotalPrice = PizzaModel.TotalPrice;
+            TotalPrice = TotalPrice - PizzaModel.CurrentPizzaBasePrice - PizzaModel.CurrentToppingPrice;
+            TotalPrice += PizzaModel.PizzaBasePrice[PizzaModel.PizzaBase];
+            PizzaModel.ToppingList.Where(Topping => Topping.Value).ToList().ForEach(Entry =>
             {
-                if(Entry.Value == true)
-                {
-                    Price += PizzaModel.ToppingPrice[Entry.Key];  
-                }
-            }
-            if (Price >= 20)
-            {
-                Price -= Price * 0.15;
-            }
-            PizzaModel.Price = Price;
+                TotalPrice += PizzaModel.ToppingPrice[Entry.Key];
+            });
+            TotalPrice = TotalPrice >= 20.0 ? (TotalPrice - (TotalPrice * 0.15)) : TotalPrice;
+            PizzaModel.DiscountPrice = Math.Round(TotalPrice, 2);
 
             if (submit == "Update pizza")
             {
