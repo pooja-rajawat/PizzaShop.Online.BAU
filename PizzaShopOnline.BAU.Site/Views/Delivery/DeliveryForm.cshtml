@@ -15,69 +15,119 @@
 </head>
 
 <style>
+
+    body{
+        background-color: rgba(250,240,200,0.2);
+    }
+
+    .form{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .wrapper {
+        box-shadow: 0 0 3px rgba(0,0,0,0.8),3px 3px 6px rgba(0,0,0,0.6);
+        background-color: lightgrey;
+        width: 500px;
+        height: 600px;
+        padding: 30px 30px;
+        box-sizing: border-box;
+    }
+
+    .heading{
+        text-align: center;
+        font-size: 30px;
+        font-weight: 600;
+        letter-spacing:1px;
+    }
+
+    .form-control{
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        height: 95px;
+        margin: 20px 0;
+    }
+
+    .label{
+        font-size:24px;
+        color: rgba(20,10,15,0.9);
+        margin-bottom: -10px;
+    }
+
+    .input{
+        padding: 8px;
+        font-size: 18px;
+        border-radius: 5px;
+        outline: none;
+    }
+
     .error{
-
+        margin: -10px 0;
+        font-size: 18px;
+        font-weight:400;
         color: red;
-        font-size:16px;
     }
 
-    .container{
-        margin: auto auto;
+    .submit{
+        border-color: red;
+        background-color: none;
+        color: red;
+        font-size: 20px;
+        font-weight: 400;
+        padding: 8px 8px;
+        width: 30%;
+        margin-top: 20px;
+        border-radius: 5px;
     }
+
+    .submit:hover{
+        background-color: red;
+        color: white;
+        border-color: black;
+    }
+
+
 </style>
 
-
-
 <body>
-    <div class="container" style="width: 60%; margin-top: 2%; font-size: 20px;">
-    
+    <div class="form">
+
         @using (Html.BeginForm("DeliveryForm", "Delivery"))
-            {
-                
-                    <table cellpadding="8" cellspacing="8" border="0">
+        {
 
-                        <tr>
-                            <td>Toppings</td>
-                            <td>@Html.DropDownListFor(m => m.Toppings, new List<SelectListItem>
-                                {
-                                    new SelectListItem{Text="M"},
-                                    new SelectListItem{Text="N"}
-                                },"L", new { @class = "form-control" } )
+        <div class="wrapper">
 
-                            </td>
-                            
-                            <br />
-                            <td>@Html.ValidationMessageFor(m => m.Toppings ,"", new { @class = "error" } )</td>
-                        </tr>
+            <h2 class="heading">Delivery Address Page</h2>
 
-                        <tr>
-                            <td>Address</td>
-                            <td>@Html.TextBoxFor(m => m.Address)</td>
-                            <br />
-                            <td>@Html.ValidationMessageFor(m => m.Address , "" , new { @class = "error" })</td>
-                        </tr>
+            <div class="form-control">
+                <label for="Address" class="label">Address</label>
+                @Html.TextBoxFor(m => m.Address, "", new { @class = "input" })
+                @Html.ValidationMessageFor(m => m.Address, "", new { @class = "error" })
+            </div>
 
-                        <tr>
-                            <td>Name</td>
-                            <td>@Html.TextBoxFor(m => m.Name)</td>
-                            <br />
-                            <td>@Html.ValidationMessageFor(m => m.Name, "" , new { @class = "error" } )</td>
-                        </tr>
+            <div class="form-control">
+                <label for="Name" class="label">Name</label>
+                @Html.TextBoxFor(m => m.Name, "", new { @class = "input" })
+                @Html.ValidationMessageFor(m => m.Name, "", new { @class = "error" })
+            </div>
 
-                        <tr>
-                            <td>Telephone</td>
-                            <td>@Html.TextBoxFor(m => m.Telephone)</td>
-                            <td>@Html.ValidationMessageFor(m => m.Telephone , "" , new { @class = "error" })</td>
-                        </tr>
+            <div class="form-control">
+                <label for="Telephone" class="label">Telephone</label>
+                @Html.TextBoxFor(m => m.Telephone, "", new { @class = "input" })
+                @Html.ValidationMessageFor(m => m.Telephone, "", new { @class = "error" })
+            </div>
 
-                        <tr>
-                            <td>&nbsp;</td>
-                            <td colspan="2"><input type="submit" value="Submit" class="btn btn-primary" /></td>
-                        </tr>
+            <input type="submit" value="Submit" class="btn btn-primary submit" />
 
-                    </table>
-                
-            }
+        </div>
+        }
     </div>
 </body>
+
+
+
+
+
 </html>
