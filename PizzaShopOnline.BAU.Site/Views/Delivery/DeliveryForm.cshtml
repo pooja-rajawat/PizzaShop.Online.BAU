@@ -5,91 +5,17 @@
 
 @model PizzaShopOnline.BAU.Site.Models.Delivery;
 
+
 <!DOCTYPE html>
 
 <html>
 
 <head>
     <meta name="viewport" content="width=device-width" />
+    <link rel="stylesheet" href="~/css/Style.css" />
     <title>Delivery Address Page</title>
 </head>
 
-<style>
-
-    body{
-        background-color: rgba(250,240,200,0.2);
-    }
-
-    .form{
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
-
-    .wrapper {
-        box-shadow: 0 0 3px rgba(0,0,0,0.8),3px 3px 6px rgba(0,0,0,0.6);
-        background-color: lightgrey;
-        width: 500px;
-        height: 600px;
-        padding: 30px 30px;
-        box-sizing: border-box;
-    }
-
-    .heading{
-        text-align: center;
-        font-size: 30px;
-        font-weight: 600;
-        letter-spacing:1px;
-    }
-
-    .form-control{
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        height: 95px;
-        margin: 20px 0;
-    }
-
-    .label{
-        font-size:24px;
-        color: rgba(20,10,15,0.9);
-        margin-bottom: -10px;
-    }
-
-    .input{
-        padding: 8px;
-        font-size: 18px;
-        border-radius: 5px;
-        outline: none;
-    }
-
-    .error{
-        margin: -10px 0;
-        font-size: 18px;
-        font-weight:400;
-        color: red;
-    }
-
-    .submit{
-        border-color: red;
-        background-color: none;
-        color: red;
-        font-size: 20px;
-        font-weight: 400;
-        padding: 8px 8px;
-        width: 30%;
-        margin-top: 20px;
-        border-radius: 5px;
-    }
-
-    .submit:hover{
-        background-color: red;
-        color: white;
-        border-color: black;
-    }
-
-
-</style>
 
 <body>
     <div class="form">
@@ -97,31 +23,31 @@
         @using (Html.BeginForm("DeliveryForm", "Delivery"))
         {
 
-        <div class="wrapper">
+            <div class="wrapper">
 
-            <h2 class="heading">Delivery Address Page</h2>
+                <h2 class="heading">Delivery Address Page</h2>
 
-            <div class="form-control">
-                <label for="Address" class="label">Address</label>
-                @Html.TextBoxFor(m => m.Address, "", new { @class = "input" })
-                @Html.ValidationMessageFor(m => m.Address, "", new { @class = "error" })
+                <div class="form-control">
+                    <label for="Address" class="label">Address</label>
+                    @Html.TextBoxFor(m => m.Address, "", new { @class = "input" })
+                    @Html.ValidationMessageFor(m => m.Address, "", new { @class = "error" })
+                </div>
+
+                <div class="form-control">
+                    <label for="Name" class="label">Name</label>
+                    @Html.TextBoxFor(m => m.Name, "", new { @class = "input" })
+                    @Html.ValidationMessageFor(m => m.Name, "", new { @class = "error" })
+                </div>
+
+                <div class="form-control">
+                    <label for="Telephone" class="label">Telephone</label>
+                    @Html.TextBoxFor(m => m.Telephone, "", new { @class = "input" })
+                    @Html.ValidationMessageFor(m => m.Telephone, "", new { @class = "error" })
+                </div>
+
+                <input type="submit" value="Submit" class="btn btn-primary submit" />
+
             </div>
-
-            <div class="form-control">
-                <label for="Name" class="label">Name</label>
-                @Html.TextBoxFor(m => m.Name, "", new { @class = "input" })
-                @Html.ValidationMessageFor(m => m.Name, "", new { @class = "error" })
-            </div>
-
-            <div class="form-control">
-                <label for="Telephone" class="label">Telephone</label>
-                @Html.TextBoxFor(m => m.Telephone, "", new { @class = "input" })
-                @Html.ValidationMessageFor(m => m.Telephone, "", new { @class = "error" })
-            </div>
-
-            <input type="submit" value="Submit" class="btn btn-primary submit" />
-
-        </div>
         }
     </div>
 </body>
