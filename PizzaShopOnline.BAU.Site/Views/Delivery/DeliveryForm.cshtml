@@ -1,0 +1,36 @@
+﻿@model PizzaShopOnline.BAU.Site.Models.Delivery; 
+
+    <div class="form">
+
+        @using (Html.BeginForm("DeliveryForm", "Delivery"))
+        {
+
+            <div class="wrapper">
+
+                <h2 class="heading">Delivery Address Page</h2>
+
+                <div class="form-control">
+                    <label for="Address" class="label">Address</label>
+                    @Html.TextBoxFor(m => m.Address, "", new { @class = "input" })
+                    @Html.ValidationMessageFor(m => m.Address, "", new { @class = "error" })
+                </div>
+
+                <div class="form-control">
+                    <label for="Name" class="label">Name</label>
+                    @Html.TextBoxFor(m => m.Name, "", new { @class = "input" })
+                    @Html.ValidationMessageFor(m => m.Name, "", new { @class = "error" })
+                </div>
+
+                <div class="form-control">
+                    <label for="Telephone" class="label">Telephone</label>
+                    @Html.TextBoxFor(m => m.Telephone, "", new { @class = "input" })
+                    @Html.ValidationMessageFor(m => m.Telephone, "", new { @class = "error" })
+                </div>
+
+                <input type="submit" value="Submit" class="btn btn-primary submit" />
+
+            </div>
+        }
+    </div>
+
+
