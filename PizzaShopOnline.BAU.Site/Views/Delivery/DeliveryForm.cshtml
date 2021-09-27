@@ -1,23 +1,5 @@
-﻿
-@{
-    Layout = null;
-}
+﻿@model PizzaShopOnline.BAU.Site.Models.Delivery; 
 
-@model PizzaShopOnline.BAU.Site.Models.Delivery;
-
-
-<!DOCTYPE html>
-
-<html>
-
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <link rel="stylesheet" href="~/css/Style.css" />
-    <title>Delivery Address Page</title>
-</head>
-
-
-<body>
     <div class="form">
 
         @using (Html.BeginForm("DeliveryForm", "Delivery"))
@@ -50,10 +32,5 @@
             </div>
         }
     </div>
-</body>
 
 
-
-
-
-</html>
