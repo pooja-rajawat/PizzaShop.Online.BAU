@@ -8,9 +8,10 @@ namespace PizzaShopOnline.BAU.Site.Models
 {
     public class Delivery
     {
+        private const string V = @"decimal{10}";
 
         [Required(ErrorMessage = "Enter address")]
-        [Display(Name= "Address")]
+        [Display(Name = "Address")]
         public string Address { get; set; }
 
         [Required(ErrorMessage = "Enter Name")]
@@ -20,7 +21,7 @@ namespace PizzaShopOnline.BAU.Site.Models
         public string Name { get; set; }
 
         [Required(ErrorMessage = "Enter telephone Number")]
-        [RegularExpression(@"^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$", ErrorMessage = "Not a valid Telephone number")]
+        [RegularExpression(@"([0-9]{10})$", ErrorMessage = "Not a valid Telephone number")]
         [Display(Name= "Telephone")]
         public Double Telephone { get; set; }
     }
