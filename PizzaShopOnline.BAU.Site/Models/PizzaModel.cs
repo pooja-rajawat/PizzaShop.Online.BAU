@@ -6,7 +6,7 @@ using PizzaShopOnline.BAU.Site.Utilities;
 
 namespace PizzaShopOnline.BAU.Site.Models
 {
-    public enum PizzaSize
+    public enum Size
     {
         SMALL,
         MEDIUM,
@@ -26,22 +26,37 @@ namespace PizzaShopOnline.BAU.Site.Models
         CRACKER_CRUST,
         FLAT_BREAD_CRUST
     }
+    public class PizzaTopping
+    {
+        public ToppingType ToppingType { get; set; }
+        public decimal Price { get; set; }
+        public bool IsSelected { get; set; }
+    }
+
+    public class PizzaBaseType
+    {
+        public BaseType BaseType { get; set; }
+        public decimal Price { get; set; }
+    }
+
+    public class PizzaSizeType
+    {
+        public Size Size { get; set; }
+        public decimal Price { get; set; }
+    }
     public class PizzaModel
     {
         public string Name { get; set; }
-        public PizzaSize Size { get; set; }
-        public double CurrentPizzaBasePrice { get; set; }
-        public double CurrentToppingPrice { get; set; }
-        public double TotalPrice { get; set; }
-        public double DiscountPrice { get; set; }
+        public Size PizzaSize { get; set; }
+        public IEnumerable<PizzaSizeType> PizzaSizePrice { get; set; }
+        public decimal DiscountPrice { get; set; }
+        public decimal TotalPrice { get; set; }
 
         [Required(ErrorMessage = "Please select base type")]
         public BaseType PizzaBase { get; set; }
-        public Dictionary<BaseType, double> PizzaBasePrice { get; set; }
+        public IEnumerable<PizzaBaseType> PizzaBasePrice { get; set; }
 
         [ValidateToppings(ErrorMessage = "You need to select atleast one topping")]
-        public Dictionary<ToppingType, bool> ToppingList { get; set; }
-        public Dictionary<ToppingType, double> ToppingPrice { get; set; }
-
+        public IEnumerable<PizzaTopping> Toppings { get; set; }
     }
 }

@@ -11,8 +11,8 @@ namespace PizzaShopOnline.BAU.Site.Utilities
     {
         public override bool IsValid(object value)
         {
-            Dictionary<ToppingType, bool> ToppingList = (Dictionary<ToppingType, bool>)value;
-            return ToppingList.ContainsValue(true);
+            List<PizzaTopping> Toppings = (List<PizzaTopping>)value;
+            return Toppings.Where(Topping => Topping.IsSelected == true).Any();
         }
     }
 }

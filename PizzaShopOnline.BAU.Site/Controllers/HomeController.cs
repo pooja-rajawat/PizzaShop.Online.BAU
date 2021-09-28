@@ -6,15 +6,18 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using PizzaShopOnline.BAU.Site.Repositories;
 
 namespace PizzaShopOnline.BAU.Site.Controllers
 {
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private PizzaRepository _pizzaRepository;
 
         public HomeController(ILogger<HomeController> logger)
         {
+            _pizzaRepository = new PizzaRepository();
             _logger = logger;
         }
 
@@ -31,45 +34,44 @@ namespace PizzaShopOnline.BAU.Site.Controllers
         [HttpGet]
         public IActionResult SelectedPizza()
         {
-            //Previous Page
             PizzaModel PizzaModel = new PizzaModel
             {
                 Name = "Margherita",
-                Size = PizzaSize.LARGE,
+                PizzaSize = Size.MEDIUM,
+                PizzaSizePrice = _pizzaRepository.GetPizzaSizePrice(),
                 PizzaBase = BaseType.FLAT_BREAD_CRUST,
-                ToppingList = new Dictionary<ToppingType, bool>()
-                {
-                    { ToppingType.EXTRA_CHEESE, false },
-                    { ToppingType.ONIONS, true },
-                    { ToppingType.BACON, false },
-                    { ToppingType.MUSHROOMS, false },
-                    { ToppingType.PEPPERONI, false },
-                },
-                ToppingPrice = new Dictionary<ToppingType, double>()
-                {
-                    { ToppingType.EXTRA_CHEESE, 1.0 },
-                    { ToppingType.ONIONS, 2.0 },
-                    { ToppingType.BACON, 3.0 },
-                    { ToppingType.MUSHROOMS, 4.0 },
-                    { ToppingType.PEPPERONI, 5.0 },
-                },
-                PizzaBasePrice = new Dictionary<BaseType, double>()
-                {
-                    { BaseType.STUFFED_CRUST, 10.0 },
-                    { BaseType.CRACKER_CRUST, 15.0 },
-                    { BaseType.FLAT_BREAD_CRUST, 20.0 }
-                },
-                TotalPrice = 32,
+                PizzaBasePrice = _pizzaRepository.GetPizzaBasePrice(),
+                Toppings = new List<PizzaTopping>() {
+                    new PizzaTopping(){
+                        ToppingType = ToppingType.EXTRA_CHEESE,
+                        Price = 2.0M,
+                        IsSelected = false
+                    },
+                    new PizzaTopping(){
+                        ToppingType = ToppingType.BACON,
+                        Price = 4.0M,
+                        IsSelected = false
+                    },
+                    new PizzaTopping(){
+                        ToppingType = ToppingType.MUSHROOMS,
+                        Price = 6.0M,
+                        IsSelected = false
+                    },
+                    new PizzaTopping(){
+                        ToppingType = ToppingType.ONIONS,
+                        Price = 8.0M,
+                        IsSelected = false
+                    },
+                    new PizzaTopping(){
+                        ToppingType = ToppingType.PEPPERONI,
+                        Price = 10.0M,
+                        IsSelected = true
+                    },
+                }
             };
-            PizzaModel.CurrentPizzaBasePrice = PizzaModel.PizzaBasePrice[PizzaModel.PizzaBase];
-            double ToppingPrice = 0;    
-            PizzaModel.ToppingList.Where(Topping => Topping.Value).ToList().ForEach(Entry =>
-            {
-                ToppingPrice += PizzaModel.ToppingPrice[Entry.Key];
-            });
-            PizzaModel.CurrentToppingPrice = ToppingPrice;
-            PizzaModel.DiscountPrice = PizzaModel.TotalPrice >= 20.0 ? (PizzaModel.TotalPrice - (PizzaModel.TotalPrice * 0.15)) : PizzaModel.TotalPrice;
-            PizzaModel.DiscountPrice = Math.Round(PizzaModel.DiscountPrice, 2);
+
+            PizzaModel.TotalPrice = _pizzaRepository.GetTotalPrice(PizzaModel.PizzaSize, PizzaModel.PizzaBase, PizzaModel.Toppings);
+            PizzaModel.DiscountPrice = _pizzaRepository.GetDiscountPrice(PizzaModel.TotalPrice);
 
             return View(PizzaModel);
         }
@@ -82,41 +84,19 @@ namespace PizzaShopOnline.BAU.Site.Controllers
                 return View(PizzaModel);
             }
 
-            // DB
-            PizzaModel.PizzaBasePrice = new Dictionary<BaseType, double>()
-            {
-                { BaseType.STUFFED_CRUST, 10.0 },
-                { BaseType.CRACKER_CRUST, 15.0 },
-                { BaseType.FLAT_BREAD_CRUST, 20.0 }
-            };
-            PizzaModel.ToppingPrice = new Dictionary<ToppingType, double>()
-            {
-                { ToppingType.EXTRA_CHEESE, 1.0 },
-                { ToppingType.ONIONS, 2.0 },
-                { ToppingType.BACON, 3.0 },
-                { ToppingType.MUSHROOMS, 4.0 },
-                { ToppingType.PEPPERONI, 5.0 },
-            };
-
-            var TotalPrice = PizzaModel.TotalPrice;
-            TotalPrice = TotalPrice - PizzaModel.CurrentPizzaBasePrice - PizzaModel.CurrentToppingPrice;
-            TotalPrice += PizzaModel.PizzaBasePrice[PizzaModel.PizzaBase];
-            PizzaModel.ToppingList.Where(Topping => Topping.Value).ToList().ForEach(Entry =>
-            {
-                TotalPrice += PizzaModel.ToppingPrice[Entry.Key];
-            });
-            TotalPrice = TotalPrice >= 20.0 ? (TotalPrice - (TotalPrice * 0.15)) : TotalPrice;
-            PizzaModel.DiscountPrice = Math.Round(TotalPrice, 2);
+            PizzaModel.PizzaBasePrice = _pizzaRepository.GetPizzaBasePrice();
+            PizzaModel.PizzaSizePrice = _pizzaRepository.GetPizzaSizePrice();
+            PizzaModel.TotalPrice = _pizzaRepository.GetTotalPrice(PizzaModel.PizzaSize, PizzaModel.PizzaBase, PizzaModel.Toppings);
+            PizzaModel.DiscountPrice = _pizzaRepository.GetDiscountPrice(PizzaModel.TotalPrice);
 
             if (submit == "Update pizza")
             {
                 return View(PizzaModel);
             }
-             else
+            else
             {
                 return RedirectToAction("DeliveryForm","Delivery");
-            }
-           
+            }           
         }
 
 
