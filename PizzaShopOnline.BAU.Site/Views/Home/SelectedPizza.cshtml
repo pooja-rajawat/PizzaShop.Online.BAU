@@ -11,7 +11,7 @@
                 <tr>
                     <td>Name:</td>
                     <td>@Model.Name</td>
-                    @Html.HiddenFor(m => m.Name);
+                    @Html.HiddenFor(m => m.Name)
                 </tr>
                 <tr>
                     <td>Size:</td>
@@ -53,11 +53,10 @@
                         <input type="submit" class="btn btn-info" name="submit" value="Update pizza" />
                     </td>
                 </tr>
-
                 <tr>
                     <td></td>
                     <td>
-                        <input type="submit" class="btn btn-primary" name="submit" value="Proceed to checkout page" />
+                        <button type="button" class="btn btn-primary" onclick="location.href='@Url.Action("DeliveryForm","Delivery")'">Proceed to checkout page</button>
                     </td>
                 </tr>
             </tbody>

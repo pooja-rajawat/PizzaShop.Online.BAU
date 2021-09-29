@@ -98,5 +98,44 @@ namespace PizzaShopOnline.BAU.Site.Repositories
 
             return DiscountPrice;
         }
+
+        public PizzaModel GetPizzaModel(Guid pizzaId)
+        {
+            return new PizzaModel{
+                Name = "Margherita",
+                PizzaSize = Size.MEDIUM,
+                PizzaSizePrice = GetPizzaSizePrice(),
+                PizzaBase = BaseType.FLAT_BREAD_CRUST,
+                PizzaBasePrice = GetPizzaBasePrice(),
+                Toppings = new List<PizzaTopping>() {
+                    new PizzaTopping(){
+                        ToppingType = ToppingType.EXTRA_CHEESE,
+                        Price = 2.0M,
+                        IsSelected = true
+                    },
+                    new PizzaTopping(){
+                        ToppingType = ToppingType.BACON,
+                        Price = 4.0M,
+                        IsSelected = false
+                    },
+                    new PizzaTopping(){
+                        ToppingType = ToppingType.MUSHROOMS,
+                        Price = 6.0M,
+                        IsSelected = false
+                    },
+                    new PizzaTopping(){
+                        ToppingType = ToppingType.ONIONS,
+                        Price = 8.0M,
+                        IsSelected = false
+                    },
+                    new PizzaTopping(){
+                        ToppingType = ToppingType.PEPPERONI,
+                        Price = 10.0M,
+                        IsSelected = false
+                    },
+                }
+            };
+        }
+
     }
 }

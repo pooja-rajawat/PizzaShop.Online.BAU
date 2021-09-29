@@ -32,44 +32,9 @@ namespace PizzaShopOnline.BAU.Site.Controllers
         }
 
         [HttpGet]
-        public IActionResult SelectedPizza()
+        public IActionResult SelectedPizza(Guid pizzaId)
         {
-            PizzaModel PizzaModel = new PizzaModel
-            {
-                Name = "Margherita",
-                PizzaSize = Size.MEDIUM,
-                PizzaSizePrice = _pizzaRepository.GetPizzaSizePrice(),
-                PizzaBase = BaseType.FLAT_BREAD_CRUST,
-                PizzaBasePrice = _pizzaRepository.GetPizzaBasePrice(),
-                Toppings = new List<PizzaTopping>() {
-                    new PizzaTopping(){
-                        ToppingType = ToppingType.EXTRA_CHEESE,
-                        Price = 2.0M,
-                        IsSelected = false
-                    },
-                    new PizzaTopping(){
-                        ToppingType = ToppingType.BACON,
-                        Price = 4.0M,
-                        IsSelected = false
-                    },
-                    new PizzaTopping(){
-                        ToppingType = ToppingType.MUSHROOMS,
-                        Price = 6.0M,
-                        IsSelected = false
-                    },
-                    new PizzaTopping(){
-                        ToppingType = ToppingType.ONIONS,
-                        Price = 8.0M,
-                        IsSelected = false
-                    },
-                    new PizzaTopping(){
-                        ToppingType = ToppingType.PEPPERONI,
-                        Price = 10.0M,
-                        IsSelected = true
-                    },
-                }
-            };
-
+            PizzaModel PizzaModel = _pizzaRepository.GetPizzaModel(pizzaId);
             PizzaModel.TotalPrice = _pizzaRepository.GetTotalPrice(PizzaModel.PizzaSize, PizzaModel.PizzaBase, PizzaModel.Toppings);
             PizzaModel.DiscountPrice = _pizzaRepository.GetDiscountPrice(PizzaModel.TotalPrice);
 
@@ -77,7 +42,7 @@ namespace PizzaShopOnline.BAU.Site.Controllers
         }
 
         [HttpPost]
-        public IActionResult SelectedPizza(PizzaModel PizzaModel, string submit)
+        public IActionResult SelectedPizza(PizzaModel PizzaModel)
         {
             if (!ModelState.IsValid)
             {
@@ -89,14 +54,7 @@ namespace PizzaShopOnline.BAU.Site.Controllers
             PizzaModel.TotalPrice = _pizzaRepository.GetTotalPrice(PizzaModel.PizzaSize, PizzaModel.PizzaBase, PizzaModel.Toppings);
             PizzaModel.DiscountPrice = _pizzaRepository.GetDiscountPrice(PizzaModel.TotalPrice);
 
-            if (submit == "Update pizza")
-            {
-                return View(PizzaModel);
-            }
-            else
-            {
-                return RedirectToAction("DeliveryForm","Delivery");
-            }           
+            return View(PizzaModel);
         }
 
 

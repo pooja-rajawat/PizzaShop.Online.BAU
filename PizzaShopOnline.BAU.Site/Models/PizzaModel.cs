@@ -32,13 +32,11 @@ namespace PizzaShopOnline.BAU.Site.Models
         public decimal Price { get; set; }
         public bool IsSelected { get; set; }
     }
-
     public class PizzaBaseType
     {
         public BaseType BaseType { get; set; }
         public decimal Price { get; set; }
     }
-
     public class PizzaSizeType
     {
         public Size Size { get; set; }
@@ -46,6 +44,11 @@ namespace PizzaShopOnline.BAU.Site.Models
     }
     public class PizzaModel
     {
+        public PizzaModel()
+        {
+            Id = Guid.NewGuid();
+        }
+        public Guid Id { get; set; }
         public string Name { get; set; }
         public Size PizzaSize { get; set; }
         public IEnumerable<PizzaSizeType> PizzaSizePrice { get; set; }
