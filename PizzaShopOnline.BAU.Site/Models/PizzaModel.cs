@@ -20,6 +20,26 @@ namespace PizzaShopOnline.BAU.Site.Models
         BACON,
         PEPPERONI
     }
+
+    public class ToppingTypeZ
+    {
+        public int Id { get; }
+        public string Name { get; }
+
+        private ToppingTypeZ(int id, string name)
+        {
+            Id = id;
+            Name = name;
+        }
+
+        public static ToppingTypeZ Select = new ToppingTypeZ(-1, "Please select...");
+        public static ToppingTypeZ ExtraCheese = new ToppingTypeZ(1, "Extra Cheese");
+        public static ToppingTypeZ Onions = new ToppingTypeZ(2, "Onions");
+        public static ToppingTypeZ Mushrooms = new ToppingTypeZ(3, "Mushrooms");
+        public static ToppingTypeZ Bacon = new ToppingTypeZ(4, "Bacon");
+        public static ToppingTypeZ Pepperoni = new ToppingTypeZ(5, "Pepperoni");
+    }
+
     public enum BaseType
     {
         STUFFED_CRUST,
@@ -44,11 +64,7 @@ namespace PizzaShopOnline.BAU.Site.Models
     }
     public class PizzaModel
     {
-        public PizzaModel()
-        {
-            Id = Guid.NewGuid();
-        }
-        public Guid Id { get; set; }
+        public int Id { get; set; }
         public string Name { get; set; }
         public Size PizzaSize { get; set; }
         public IEnumerable<PizzaSizeType> PizzaSizePrice { get; set; }

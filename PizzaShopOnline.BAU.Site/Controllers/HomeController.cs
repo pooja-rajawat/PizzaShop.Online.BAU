@@ -1,24 +1,18 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 using PizzaShopOnline.BAU.Site.Models;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
 using PizzaShopOnline.BAU.Site.Repositories;
+using System;
+using System.Diagnostics;
 
 namespace PizzaShopOnline.BAU.Site.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
-        private PizzaRepository _pizzaRepository;
+        private readonly IPizzaRepository _pizzaRepository;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(IPizzaRepository pizzaRepository)
         {
-            _pizzaRepository = new PizzaRepository();
-            _logger = logger;
+            _pizzaRepository = pizzaRepository;
         }
 
         public IActionResult Index()
@@ -32,29 +26,23 @@ namespace PizzaShopOnline.BAU.Site.Controllers
         }
 
         [HttpGet]
-        public IActionResult SelectedPizza(Guid pizzaId)
+        public IActionResult SelectedPizza(int id)
         {
-            PizzaModel PizzaModel = _pizzaRepository.GetPizzaModel(pizzaId);
-            PizzaModel.TotalPrice = _pizzaRepository.GetTotalPrice(PizzaModel.PizzaSize, PizzaModel.PizzaBase, PizzaModel.Toppings);
-            PizzaModel.DiscountPrice = _pizzaRepository.GetDiscountPrice(PizzaModel.TotalPrice);
-
+            PizzaModel PizzaModel = _pizzaRepository.GetPizzaModel(id);
             return View(PizzaModel);
         }
 
         [HttpPost]
-        public IActionResult SelectedPizza(PizzaModel PizzaModel)
+        public IActionResult SelectedPizza(PizzaModel pizzaModel)
         {
             if (!ModelState.IsValid)
             {
-                return View(PizzaModel);
+                return View(pizzaModel);
             }
 
-            PizzaModel.PizzaBasePrice = _pizzaRepository.GetPizzaBasePrice();
-            PizzaModel.PizzaSizePrice = _pizzaRepository.GetPizzaSizePrice();
-            PizzaModel.TotalPrice = _pizzaRepository.GetTotalPrice(PizzaModel.PizzaSize, PizzaModel.PizzaBase, PizzaModel.Toppings);
-            PizzaModel.DiscountPrice = _pizzaRepository.GetDiscountPrice(PizzaModel.TotalPrice);
+            var model = _pizzaRepository.UpdatePizza(pizzaModel);
 
-            return View(PizzaModel);
+            return View(model);
         }
 
 

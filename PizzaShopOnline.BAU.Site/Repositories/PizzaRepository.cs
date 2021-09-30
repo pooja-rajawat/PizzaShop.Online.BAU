@@ -2,13 +2,36 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace PizzaShopOnline.BAU.Site.Repositories
 {
-    public class PizzaRepository
+    public class PizzaRepository : IPizzaRepository
     {
-        public IEnumerable<PizzaTopping> GetPizzaToppings()
+        private readonly IEnumerable<PizzaModel> _pizzas;
+        public PizzaRepository()
+        {
+            _pizzas = GetPizzaList();
+        }
+
+        private IEnumerable<PizzaModel> GetPizzaList()
+        {
+            var result = new List<PizzaModel>();
+
+            result.Add(
+                new PizzaModel
+                {
+                    Id = 1,
+                    Name = "Margherita",
+                    PizzaSize = Size.MEDIUM,
+                    PizzaSizePrice = GetPizzaSizePrice(),
+                    PizzaBase = BaseType.FLAT_BREAD_CRUST,
+                    PizzaBasePrice = GetPizzaBasePrice(),
+                    Toppings = GetPizzaToppings()
+                });
+            return result;
+        }
+
+        private IEnumerable<PizzaTopping> GetPizzaToppings()
         {
             return new List<PizzaTopping>() {
                 new PizzaTopping(){
@@ -39,7 +62,7 @@ namespace PizzaShopOnline.BAU.Site.Repositories
             };
         }
 
-        public IEnumerable<PizzaBaseType> GetPizzaBasePrice()
+        private IEnumerable<PizzaBaseType> GetPizzaBasePrice()
         {
             return new List<PizzaBaseType>(){
                 new PizzaBaseType() {
@@ -57,7 +80,7 @@ namespace PizzaShopOnline.BAU.Site.Repositories
             };
         }
 
-        public IEnumerable<PizzaSizeType> GetPizzaSizePrice()
+        private IEnumerable<PizzaSizeType> GetPizzaSizePrice()
         {
             return new List<PizzaSizeType>(){
                 new PizzaSizeType() {
@@ -75,14 +98,15 @@ namespace PizzaShopOnline.BAU.Site.Repositories
             };
         }
 
-        public decimal GetTotalPrice( Size PizzaSize, BaseType PizzaBase, IEnumerable<PizzaTopping> Toppings )
+        private decimal GetTotalPrice(Size PizzaSize, BaseType PizzaBase, IEnumerable<PizzaTopping> Toppings)
         {
             var PizzaSizePrice = GetPizzaSizePrice();
             var PizzaBasePrice = GetPizzaBasePrice();
             decimal SizeTotalPrice = PizzaSizePrice.Where(SizePrice => SizePrice.Size == PizzaSize).ToList().First().Price;
             decimal BaseTotalPrice = PizzaBasePrice.Where(BasePrice => BasePrice.BaseType == PizzaBase).ToList().First().Price;
             decimal PizzaToppingsPrice = decimal.Zero;
-            Toppings.Where(Toppings => Toppings.IsSelected).ToList().ForEach(Toppings => {
+            Toppings.Where(Toppings => Toppings.IsSelected).ToList().ForEach(Toppings =>
+            {
                 PizzaToppingsPrice = decimal.Add(PizzaToppingsPrice, Toppings.Price);
             });
             decimal TotalPrice = decimal.Add(BaseTotalPrice, PizzaToppingsPrice);
@@ -91,7 +115,7 @@ namespace PizzaShopOnline.BAU.Site.Repositories
             return TotalPrice;
         }
 
-        public decimal GetDiscountPrice( decimal TotalPrice)
+        private decimal GetDiscountPrice(decimal TotalPrice)
         {
             decimal DiscountPrice = TotalPrice < 20.0M ? TotalPrice : (TotalPrice - decimal.Multiply(TotalPrice, 0.15M));
             DiscountPrice = Math.Round(DiscountPrice, 2);
@@ -99,43 +123,20 @@ namespace PizzaShopOnline.BAU.Site.Repositories
             return DiscountPrice;
         }
 
-        public PizzaModel GetPizzaModel(Guid pizzaId)
+        public PizzaModel GetPizzaModel(int pizzaId)
         {
-            return new PizzaModel{
-                Name = "Margherita",
-                PizzaSize = Size.MEDIUM,
-                PizzaSizePrice = GetPizzaSizePrice(),
-                PizzaBase = BaseType.FLAT_BREAD_CRUST,
-                PizzaBasePrice = GetPizzaBasePrice(),
-                Toppings = new List<PizzaTopping>() {
-                    new PizzaTopping(){
-                        ToppingType = ToppingType.EXTRA_CHEESE,
-                        Price = 2.0M,
-                        IsSelected = true
-                    },
-                    new PizzaTopping(){
-                        ToppingType = ToppingType.BACON,
-                        Price = 4.0M,
-                        IsSelected = false
-                    },
-                    new PizzaTopping(){
-                        ToppingType = ToppingType.MUSHROOMS,
-                        Price = 6.0M,
-                        IsSelected = false
-                    },
-                    new PizzaTopping(){
-                        ToppingType = ToppingType.ONIONS,
-                        Price = 8.0M,
-                        IsSelected = false
-                    },
-                    new PizzaTopping(){
-                        ToppingType = ToppingType.PEPPERONI,
-                        Price = 10.0M,
-                        IsSelected = false
-                    },
-                }
-            };
+            var selectedPizza = _pizzas.FirstOrDefault(pizza => pizza.Id == pizzaId);
+            return selectedPizza;
         }
 
+        public PizzaModel UpdatePizza(PizzaModel pizzaModel)
+        {
+            pizzaModel.PizzaBasePrice = GetPizzaBasePrice();
+            pizzaModel.PizzaSizePrice = GetPizzaSizePrice();
+            pizzaModel.TotalPrice = GetTotalPrice(pizzaModel.PizzaSize, pizzaModel.PizzaBase, pizzaModel.Toppings);
+            pizzaModel.DiscountPrice = GetDiscountPrice(pizzaModel.TotalPrice);
+
+            return pizzaModel;
+        }
     }
 }
