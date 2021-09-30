@@ -1,5 +1,5 @@
 ﻿using PizzaShopOnline.BAU.Site.Models;
-using System;
+using System.Collections.Generic;
 
 namespace PizzaShopOnline.BAU.Site.Repositories
 {
@@ -7,5 +7,6 @@ namespace PizzaShopOnline.BAU.Site.Repositories
     {
         PizzaModel GetPizzaModel(int pizzaId);
         PizzaModel UpdatePizza(PizzaModel pizzaModel);
+        IEnumerable<PizzaModel> GetPizzaList();
     }
 }

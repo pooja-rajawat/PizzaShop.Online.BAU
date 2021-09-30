@@ -7,30 +7,6 @@ namespace PizzaShopOnline.BAU.Site.Repositories
 {
     public class PizzaRepository : IPizzaRepository
     {
-        private readonly IEnumerable<PizzaModel> _pizzas;
-        public PizzaRepository()
-        {
-            _pizzas = GetPizzaList();
-        }
-
-        private IEnumerable<PizzaModel> GetPizzaList()
-        {
-            var result = new List<PizzaModel>();
-
-            result.Add(
-                new PizzaModel
-                {
-                    Id = 1,
-                    Name = "Margherita",
-                    PizzaSize = Size.MEDIUM,
-                    PizzaSizePrice = GetPizzaSizePrice(),
-                    PizzaBase = BaseType.FLAT_BREAD_CRUST,
-                    PizzaBasePrice = GetPizzaBasePrice(),
-                    Toppings = GetPizzaToppings()
-                });
-            return result;
-        }
-
         private IEnumerable<PizzaTopping> GetPizzaToppings()
         {
             return new List<PizzaTopping>() {
@@ -125,7 +101,7 @@ namespace PizzaShopOnline.BAU.Site.Repositories
 
         public PizzaModel GetPizzaModel(int pizzaId)
         {
-            var selectedPizza = _pizzas.FirstOrDefault(pizza => pizza.Id == pizzaId);
+            var selectedPizza = GetPizzaList().FirstOrDefault(pizza => pizza.Id == pizzaId);
             return selectedPizza;
         }
 
@@ -137,6 +113,24 @@ namespace PizzaShopOnline.BAU.Site.Repositories
             pizzaModel.DiscountPrice = GetDiscountPrice(pizzaModel.TotalPrice);
 
             return pizzaModel;
+        }
+
+        public IEnumerable<PizzaModel> GetPizzaList()
+        {
+            var result = new List<PizzaModel>();
+
+            result.Add(
+                new PizzaModel
+                {
+                    Id = 1,
+                    Name = "Margherita",
+                    PizzaSize = Size.MEDIUM,
+                    PizzaSizePrice = GetPizzaSizePrice(),
+                    PizzaBase = BaseType.FLAT_BREAD_CRUST,
+                    PizzaBasePrice = GetPizzaBasePrice(),
+                    Toppings = GetPizzaToppings()
+                });
+            return result;
         }
     }
 }
