@@ -1,14 +1,13 @@
 ﻿
 namespace PizzaShopOnline.BAU.Site.Models
 {
-    public enum PizzaSize
+    public class PizzaItem
     {
-        SMALL_PAN,
-        MEDIUM_PAN,
-        LARGE_PAN,
+        public string Name { get; set; }
+        public string ImageUrl { get; set; }
+        public string Toppings { get; set; }
     }
-    public class HomePageModel
-    {
-        public PizzaSize Size { get; set; }
-    }
+
+   
+    
 }
