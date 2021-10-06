@@ -1,142 +1,35 @@
-﻿@{
+﻿
+@model IEnumerable<PizzaShopOnline.BAU.Site.Models.PizzaItem>
+
+@{
     ViewData["Title"] = "Home Page";
 }
 <div class="text-center">
     <h2 class="display-4">Online Pizza Delivery</h2>
     <div class="row">
-        <div class="col">
-            <div class="card" style="width: 18rem;">
-                <img class="card-img-top" src="~/images/Margherita.jpg" alt="Card image cap">
-                <div class="card-body">
-                    <h5 class="card-title">Margherita</h5>
-                    <p class="card-text">Cheese</p>
-                    <div class="dropdown show">
-                        <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Medium Pan
-                        </a>
-
-                        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                            <a class="dropdown-item" href="#">Personal Pan</a>
-                            <a class="dropdown-item" href="#">Large Pan</a>
-
-                        </div>
-                    </div> <br />
-                    <a href="#" class="btn btn-primary">Add Rs279</a>
-                </div>
-            </div>
-        </div>
-        <div class="col">
-            <div class="card" style="width: 18rem;">
-                <img class="card-img-top" src="~/images/Tandoori Paneer.jpg" alt="Card image cap">
-                <div class="card-body">
-                    <h5 class="card-title">Tandoori Paneer</h5>
-                    <p class="card-text">Spiced Paneer,Onion </p>
-                    <div class="dropdown show">
-                        <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Medium Pan
-                        </a>
-
-                        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                            <a class="dropdown-item" href="#">Personal Pan</a>
-                            <a class="dropdown-item" href="#">Large Pan</a>
-
-                        </div>
-                    </div> <br />
-                    <a href="#" class="btn btn-primary">Add Rs529</a>
-                </div>
-            </div>
-        </div>
-        <div class="col">
-            <div class="card" style="width: 18rem;">
-                <img class="card-img-top" src="~/images/VeggieSupreme.jpg" alt="Card image cap">
-                <div class="card-body">
-                    <h5 class="card-title">Veggie Supreme</h5>
-                    <p class="card-text">Black Olivies, Green Capsicum</p>
-                    <div class="dropdown show">
-                        <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Medium Pan
-                        </a>
-
-                        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                            <a class="dropdown-item" href="#">Personal Pan</a>
-                            <a class="dropdown-item" href="#">Large Pan</a>
-
-                        </div>
-                    </div> <br />
-                    <a href="#" class="btn btn-primary">Add Rs569</a>
-                </div>
-            </div>
-        </div>
-    </div> 
-   <br />
-    <div class="row">
-        <div class="col">
-            <div class="card" style="width: 18rem;">
-                <img class="card-img-top" src="~/images/VegKebabSurprise.jpg" alt="Card image cap">
-                <div class="card-body">
-                    <h5 class="card-title">Veg Kebab Surprise</h5>
-                    <p class="card-text">Veg Kebab,Tomato</p>
-                    <div class="dropdown show">
-                        <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Medium Pan
-                        </a>
-
-                        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                            <a class="dropdown-item" href="#">Personal Pan</a>
-                            <a class="dropdown-item" href="#">Large Pan</a>
-
-                        </div>
-                    </div> <br />
-                    <a href="#" class="btn btn-primary">Add Rs529</a>
-                </div>
-            </div>
-        </div>
+        @foreach (var item in Model)
+        {
 
         <div class="col">
             <div class="card" style="width: 18rem;">
-                <img class="card-img-top" src="~/images/ChickenSupreme.jpg" alt="Card image cap">
+                <p></p>
+                <img src="@item.ImageUrl" alt="Pizza Pic" />
                 <div class="card-body">
-                    <h5 class="card-title">Chicken Supreme</h5>
-                    <p class="card-text">Herbed Chicken </p>
-                    <div class="dropdown show">
-                        <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Medium Pan
-                        </a>
+                    <h5 class="card-title"> @Html.DisplayFor(model => item.Name)   </h5>
+                    <p class="card-text"> @Html.DisplayFor(model => item.Toppings) </p>
 
-                        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                            <a class="dropdown-item" href="#">Personal Pan</a>
-                            <a class="dropdown-item" href="#">Large Pan</a>
+                    <br />
 
-                        </div>
-                    </div> <br />
-                    <a href="#" class="btn btn-primary">Add Rs629</a>
                 </div>
             </div>
         </div>
-        <div class="col">
-            <div class="card" style="width: 18rem;">
-                <img class="card-img-top" src="~/images/cornAndcheese.jpg" alt="Card image cap">
-                <div class="card-body">
-                    <h5 class="card-title">Corn and Cheese</h5>
-                    <p class="card-text">Cheese, Sweet Corn</p>
-                    <div class="dropdown show">
-                        <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Medium Pan
-                        </a>
-
-                        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                            <a class="dropdown-item" href="#">Personal Pan</a>
-                            <a class="dropdown-item" href="#">Large Pan</a>
-
-                        </div>
-                    </div> <br />
-                    <a href="#" class="btn btn-primary">Add Rs359</a>
-                </div>
-            </div>
-        </div>
-        </div>
+        }
+      
+      
     </div>
-
-
-
+   
+ 
 </div>
+
+
+
