@@ -1,0 +1,72 @@
+@model PizzaShopOnline.BAU.Site.Models.PizzaModel
+
+<div class="container">
+    <h1 class="text-center"> Modify pizza </h1>
+
+    @using (Html.BeginForm("SelectedPizza", "Home", FormMethod.Post))
+    {
+        <table class="table table-hover">
+            <tbody>
+                <tr>
+                    <td>Name:</td>
+                    <td>@Model.Name</td>
+                    @Html.HiddenFor(m => m.Name)
+                </tr>
+                <tr>
+                    <td>Size:</td>
+                    <td>
+                        @Html.ValidationMessageFor(model => model.SelectedPizzaSize, "", new { @class = "text-danger" })
+                        @Html.DropDownListFor(model => model.SelectedPizzaSize, Size.GetSelectedListItem())
+                    </td>
+                </tr>
+                <tr>
+                    <td>Base Type:</td>
+                    <td>
+                        @Html.ValidationMessageFor(model => model.SelectedBaseType, "", new { @class = "text-danger" })
+                        @Html.DropDownListFor(model => model.SelectedBaseType, BaseType.GetSelectedListItem())
+  
+                    </td>
+                </tr>
+                <tr>
+                    <td>Select Toppings:</td>
+                    <td>
+                        @Html.ValidationMessageFor(model => model.Toppings, "", new { @class = "text-danger" })
+                        @for (int i = 0; i < Model.Toppings.Count(); i++)
+                        {
+                            @Html.Label("Toppings[" + i + "].ToppingType", Model.Toppings.ToList()[i].ToppingType.Name + "")
+                            @:&nbsp;
+                            @Html.CheckBox("Toppings[" + i + "].IsSelected", Model.Toppings.ToList()[i].IsSelected)
+                            @Html.Hidden("Toppings[" + i + "].Price", Model.Toppings.ToList()[i].Price)
+                            @Html.Hidden("Toppings[" + i + "].ToppingType.Id", Model.Toppings.ToList()[i].ToppingType.Id)
+                            @Html.Hidden("Toppings[" + i + "].ToppingType.Name", Model.Toppings.ToList()[i].ToppingType.Name)
+
+
+@*                            @Html.Hidden("Toppings[" + i + "].ToppingType.Id", Model.Toppings.ToList()[i].ToppingType.Id)
+                            @Html.Hidden("Toppings[" + i + "].ToppingType.Name", Model.Toppings.ToList()[i].ToppingType.Name)
+*@
+
+                            <br />
+                        }
+                    </td>
+                </tr>
+                <tr>
+                    <td>Price:</td>
+                    <td>&pound; @Model.DiscountPrice</td>
+                </tr>
+
+                <tr>
+                    <td></td>
+                    <td>
+                        <input type="submit" class="btn btn-info" name="submit" value="Update pizza" />
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        <button type="button" class="btn btn-primary" onclick="location.href='@Url.Action("DeliveryForm","Delivery")'">Proceed to checkout page</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    }
+</div>

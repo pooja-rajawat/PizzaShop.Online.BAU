@@ -1,21 +1,17 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 using PizzaShopOnline.BAU.Site.Models;
-using System;
-using System.Collections.Generic;
+using PizzaShopOnline.BAU.Site.Repositories;
 using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace PizzaShopOnline.BAU.Site.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        private readonly IPizzaRepository _pizzaRepository;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(IPizzaRepository pizzaRepository)
         {
-            _logger = logger;
+            _pizzaRepository = pizzaRepository;
         }
 
         public IActionResult Index()
@@ -27,6 +23,27 @@ namespace PizzaShopOnline.BAU.Site.Controllers
         {
             return View();
         }
+
+        [HttpGet]
+        public IActionResult SelectedPizza(int id)
+        {
+            PizzaModel PizzaModel = _pizzaRepository.GetPizzaModel(id);
+            return View(PizzaModel);
+        }
+
+        [HttpPost]
+        public IActionResult SelectedPizza(PizzaModel pizzaModel)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(pizzaModel);
+            }
+
+            var model = _pizzaRepository.UpdatePizza(pizzaModel);
+
+            return View(model);
+        }
+
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
