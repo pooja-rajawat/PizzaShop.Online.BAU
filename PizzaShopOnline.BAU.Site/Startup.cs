@@ -4,6 +4,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using PizzaShopOnline.BAU.Site.Repositories;
+using PizzaShopOnline.BAU.Site.Services;
 
 namespace PizzaShopOnline.BAU.Site
 {
@@ -23,6 +24,7 @@ namespace PizzaShopOnline.BAU.Site
 
             // IoC inversion of control
             services.AddScoped<IPizzaRepository, PizzaRepository>();
+            services.AddScoped<IPizzaService, PizzaService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

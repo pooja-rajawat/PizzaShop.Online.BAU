@@ -137,7 +137,8 @@ namespace PizzaShopOnline.BAU.Site.Repositories
                     PizzaSizePrice = GetPizzaSizePrice(),
                     PizzaBase = BaseType.Select,
                     PizzaBasePrice = GetPizzaBasePrice(),
-                    Toppings = GetPizzaToppings()
+                    Toppings = GetPizzaToppings(),
+                    ImageUrl = "/images/VegKebabSurprise.jpg"
                 }
             };
             return result;

@@ -125,5 +125,6 @@ namespace PizzaShopOnline.BAU.Site.Models
         public IEnumerable<PizzaTopping> Toppings { get; set; }
         public decimal DiscountPrice { get; set; }
         public decimal TotalPrice { get; set; }
+        public string ImageUrl { get; set; }
     }
 }

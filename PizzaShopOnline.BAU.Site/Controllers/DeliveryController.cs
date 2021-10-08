@@ -1,8 +1,4 @@
-﻿ using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using Microsoft.AspNetCore.Mvc;
 using PizzaShopOnline.BAU.Site.Models;
 
 namespace PizzaShopOnline.BAU.Site.Controllers
@@ -16,7 +12,7 @@ namespace PizzaShopOnline.BAU.Site.Controllers
         }
 
         [HttpPost]
-        public ActionResult DeliveryForm( Delivery account)
+        public ActionResult DeliveryForm(Delivery account)
         {
             if (ModelState.IsValid)
             {
@@ -26,6 +22,6 @@ namespace PizzaShopOnline.BAU.Site.Controllers
 
             return View("DeliveryForm");
         }
-       
+
     }
 }

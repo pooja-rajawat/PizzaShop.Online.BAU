@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using PizzaShopOnline.BAU.Site.Models;
 using PizzaShopOnline.BAU.Site.Repositories;
+using PizzaShopOnline.BAU.Site.Services;
 using System.Diagnostics;
 
 namespace PizzaShopOnline.BAU.Site.Controllers
@@ -8,15 +9,18 @@ namespace PizzaShopOnline.BAU.Site.Controllers
     public class HomeController : Controller
     {
         private readonly IPizzaRepository _pizzaRepository;
+        private readonly IPizzaService _homePageService;
 
-        public HomeController(IPizzaRepository pizzaRepository)
+        public HomeController(IPizzaRepository pizzaRepository, IPizzaService homePageService)
         {
             _pizzaRepository = pizzaRepository;
+            _homePageService = homePageService;
         }
 
         public IActionResult Index()
         {
-            return View();
+            var model = _homePageService.GetPizzaList();
+            return View(model);
         }
 
         public IActionResult Privacy()

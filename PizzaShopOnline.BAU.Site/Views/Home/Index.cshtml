@@ -1,5 +1,5 @@
 ﻿
-@model IEnumerable<PizzaShopOnline.BAU.Site.Models.PizzaItem>
+@model IEnumerable<PizzaShopOnline.BAU.Site.ViewModels.HomePageViewModel>
 
 @{
     ViewData["Title"] = "Home Page";
@@ -16,10 +16,7 @@
                 <img src="@item.ImageUrl" alt="Pizza Pic" />
                 <div class="card-body">
                     <h5 class="card-title"> @Html.DisplayFor(model => item.Name)   </h5>
-                    <p class="card-text"> @Html.DisplayFor(model => item.Toppings) </p>
-
                     <br />
-
                 </div>
             </div>
         </div>
