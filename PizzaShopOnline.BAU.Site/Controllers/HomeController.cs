@@ -8,18 +8,16 @@ namespace PizzaShopOnline.BAU.Site.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly IPizzaRepository _pizzaRepository;
-        private readonly IPizzaService _homePageService;
+        private readonly IPizzaService _pizzaService;
 
-        public HomeController(IPizzaRepository pizzaRepository, IPizzaService homePageService)
+        public HomeController(IPizzaService pizzaService)
         {
-            _pizzaRepository = pizzaRepository;
-            _homePageService = homePageService;
+            _pizzaService = pizzaService;
         }
 
         public IActionResult Index()
         {
-            var model = _homePageService.GetPizzaList();
+            var model = _pizzaService.GetPizzaList();
             return View(model);
         }
 
@@ -31,7 +29,7 @@ namespace PizzaShopOnline.BAU.Site.Controllers
         [HttpGet]
         public IActionResult SelectedPizza(int id)
         {
-            PizzaModel PizzaModel = _pizzaRepository.GetPizzaModel(id);
+            PizzaModel PizzaModel = _pizzaService.GetPizzaModel(id);
             return View(PizzaModel);
         }
 
@@ -43,7 +41,7 @@ namespace PizzaShopOnline.BAU.Site.Controllers
                 return View(pizzaModel);
             }
 
-            var model = _pizzaRepository.UpdatePizza(pizzaModel);
+            var model = _pizzaService.UpdatePizza(pizzaModel);
 
             return View(model);
         }

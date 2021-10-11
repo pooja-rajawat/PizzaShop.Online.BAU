@@ -39,12 +39,6 @@
                             @Html.Hidden("Toppings[" + i + "].Price", Model.Toppings.ToList()[i].Price)
                             @Html.Hidden("Toppings[" + i + "].ToppingType.Id", Model.Toppings.ToList()[i].ToppingType.Id)
                             @Html.Hidden("Toppings[" + i + "].ToppingType.Name", Model.Toppings.ToList()[i].ToppingType.Name)
-
-
-@*                            @Html.Hidden("Toppings[" + i + "].ToppingType.Id", Model.Toppings.ToList()[i].ToppingType.Id)
-                            @Html.Hidden("Toppings[" + i + "].ToppingType.Name", Model.Toppings.ToList()[i].ToppingType.Name)
-*@
-
                             <br />
                         }
                     </td>
@@ -63,7 +57,7 @@
                 <tr>
                     <td></td>
                     <td>
-                        <button type="button" class="btn btn-primary" onclick="location.href='@Url.Action("DeliveryForm","Delivery")'">Proceed to checkout page</button>
+                        <button type="button" class="btn btn-primary" onclick="location.href='@Url.Action("DeliveryForm","Delivery", new { id = Model.Id })'">Proceed to checkout page</button>
                     </td>
                 </tr>
             </tbody>

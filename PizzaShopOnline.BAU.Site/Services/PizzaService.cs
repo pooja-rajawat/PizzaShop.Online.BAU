@@ -1,4 +1,5 @@
-﻿using PizzaShopOnline.BAU.Site.Repositories;
+﻿using PizzaShopOnline.BAU.Site.Models;
+using PizzaShopOnline.BAU.Site.Repositories;
 using PizzaShopOnline.BAU.Site.ViewModels;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,6 +27,16 @@ namespace PizzaShopOnline.BAU.Site.Services
             });
 
             return result;
+        }
+
+        public PizzaModel GetPizzaModel(int pizzaId)
+        {
+            return _pizzaRepository.GetPizzaModel(pizzaId);
+        }
+
+        public PizzaModel UpdatePizza(PizzaModel pizzaModel)
+        {
+            return _pizzaRepository.UpdatePizza(pizzaModel);
         }
     }
 }
