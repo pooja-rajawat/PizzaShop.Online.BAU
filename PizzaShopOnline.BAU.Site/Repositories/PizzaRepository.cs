@@ -138,8 +138,71 @@ namespace PizzaShopOnline.BAU.Site.Repositories
                     PizzaBase = BaseType.Select,
                     PizzaBasePrice = GetPizzaBasePrice(),
                     Toppings = GetPizzaToppings(),
-                    ImageUrl = "/images/VegKebabSurprise.jpg"
+                    ImageUrl = "/images/Margherita.jpg"
                 }
+                
+                ,
+                new PizzaModel
+
+                {
+                    Id = 2,
+                    Name = "Veggie Supreme",
+                    PizzaSize = Size.Select,
+                    PizzaSizePrice = GetPizzaSizePrice(),
+                    PizzaBase = BaseType.Select,
+                    PizzaBasePrice = GetPizzaBasePrice(),
+                    Toppings = GetPizzaToppings(),
+                    ImageUrl = "/images/VeggieSupreme.jpg"
+                },
+                 new PizzaModel
+
+                {
+                    Id = 3,
+                    Name = "Tandoori Paneer",
+                    PizzaSize = Size.Select,
+                    PizzaSizePrice = GetPizzaSizePrice(),
+                    PizzaBase = BaseType.Select,
+                    PizzaBasePrice = GetPizzaBasePrice(),
+                    Toppings = GetPizzaToppings(),
+                    ImageUrl = "/images/Tandoori Paneer.jpg"
+                },
+                  new PizzaModel
+
+                {
+                    Id = 4,
+                    Name = "Veg Kebab Surprise",
+                    PizzaSize = Size.Select,
+                    PizzaSizePrice = GetPizzaSizePrice(),
+                    PizzaBase = BaseType.Select,
+                    PizzaBasePrice = GetPizzaBasePrice(),
+                    Toppings = GetPizzaToppings(),
+                    ImageUrl = "/images/VegKebabSurprise.jpg"
+                },
+                   new PizzaModel
+
+                {
+                    Id = 5,
+                    Name = "Corn And cheese",
+                    PizzaSize = Size.Select,
+                    PizzaSizePrice = GetPizzaSizePrice(),
+                    PizzaBase = BaseType.Select,
+                    PizzaBasePrice = GetPizzaBasePrice(),
+                    Toppings = GetPizzaToppings(),
+                    ImageUrl = "/images/cornAndcheese.jpg"
+                },
+                    new PizzaModel
+
+                {
+                    Id = 6,
+                    Name = "Chicken Supreme",
+                    PizzaSize = Size.Select,
+                    PizzaSizePrice = GetPizzaSizePrice(),
+                    PizzaBase = BaseType.Select,
+                    PizzaBasePrice = GetPizzaBasePrice(),
+                    Toppings = GetPizzaToppings(),
+                    ImageUrl = "/images/ChickenSupreme.jpg"
+                }
+
             };
             return result;
         }
