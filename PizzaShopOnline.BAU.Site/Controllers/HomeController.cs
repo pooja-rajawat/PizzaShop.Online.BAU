@@ -2,6 +2,7 @@
 using PizzaShopOnline.BAU.Site.Models;
 using PizzaShopOnline.BAU.Site.Repositories;
 using PizzaShopOnline.BAU.Site.Services;
+using PizzaShopOnline.BAU.Site.ViewModels;
 using System.Diagnostics;
 
 namespace PizzaShopOnline.BAU.Site.Controllers
@@ -29,19 +30,19 @@ namespace PizzaShopOnline.BAU.Site.Controllers
         [HttpGet]
         public IActionResult SelectedPizza(int id)
         {
-            PizzaModel PizzaModel = _pizzaService.GetPizzaModel(id);
-            return View(PizzaModel);
+            SelectedPizzaViewModel selectedPizzaViewModel = _pizzaService.GetSelectedPizzaViewModel(id);
+            return View(selectedPizzaViewModel);
         }
 
         [HttpPost]
-        public IActionResult SelectedPizza(PizzaModel pizzaModel)
+        public IActionResult SelectedPizza(SelectedPizzaViewModel selectedPizzaViewModel)
         {
             if (!ModelState.IsValid)
             {
-                return View(pizzaModel);
+                return View(selectedPizzaViewModel);
             }
 
-            var model = _pizzaService.UpdatePizza(pizzaModel);
+            var model = _pizzaService.UpdatePizza(selectedPizzaViewModel);
 
             return View(model);
         }

@@ -34,9 +34,59 @@ namespace PizzaShopOnline.BAU.Site.Services
             return _pizzaRepository.GetPizzaModel(pizzaId);
         }
 
-        public PizzaModel UpdatePizza(PizzaModel pizzaModel)
+        public SelectedPizzaViewModel UpdatePizza(SelectedPizzaViewModel selectedPizzaViewModel)
         {
-            return _pizzaRepository.UpdatePizza(pizzaModel);
+
+            PizzaModel pizzaModel = new PizzaModel
+            {
+                Name = selectedPizzaViewModel.Name,
+                Id = selectedPizzaViewModel.Id,
+                DiscountPrice = selectedPizzaViewModel.DiscountPrice,
+                PizzaBase = selectedPizzaViewModel.PizzaBase,
+                PizzaBasePrice = selectedPizzaViewModel.PizzaBasePrice,
+                PizzaSize = selectedPizzaViewModel.PizzaSize,
+                PizzaSizePrice = selectedPizzaViewModel.PizzaSizePrice,
+                SelectedBaseType = selectedPizzaViewModel.SelectedBaseType,
+                SelectedPizzaSize = selectedPizzaViewModel.SelectedPizzaSize,
+                Toppings = selectedPizzaViewModel.Toppings,
+                TotalPrice = selectedPizzaViewModel.TotalPrice
+            };
+            pizzaModel = _pizzaRepository.UpdatePizza(pizzaModel);
+            SelectedPizzaViewModel result = new SelectedPizzaViewModel
+            {
+                Name = pizzaModel.Name,
+                Id = pizzaModel.Id,
+                DiscountPrice = pizzaModel.DiscountPrice,
+                PizzaBase = pizzaModel.PizzaBase,
+                PizzaBasePrice = (List<PizzaBaseType>)pizzaModel.PizzaBasePrice,
+                PizzaSize = pizzaModel.PizzaSize,
+                PizzaSizePrice = (List<PizzaSizeType>)pizzaModel.PizzaSizePrice,
+                SelectedBaseType = pizzaModel.SelectedBaseType,
+                SelectedPizzaSize = pizzaModel.SelectedPizzaSize,
+                Toppings = (List<PizzaTopping>)pizzaModel.Toppings,
+                TotalPrice = pizzaModel.TotalPrice
+            };
+            return result;
+        }
+
+        public SelectedPizzaViewModel GetSelectedPizzaViewModel(int pizzaId)
+        {
+            PizzaModel pizzaModel = GetPizzaModel(pizzaId);
+            SelectedPizzaViewModel result = new SelectedPizzaViewModel
+            {
+                Name = pizzaModel.Name,
+                Id = pizzaModel.Id,
+                DiscountPrice = pizzaModel.DiscountPrice,
+                PizzaBase = pizzaModel.PizzaBase,
+                PizzaBasePrice = (List<PizzaBaseType>)pizzaModel.PizzaBasePrice,
+                PizzaSize = pizzaModel.PizzaSize,
+                PizzaSizePrice = (List<PizzaSizeType>)pizzaModel.PizzaSizePrice,
+                SelectedBaseType = pizzaModel.SelectedBaseType,
+                SelectedPizzaSize = pizzaModel.SelectedPizzaSize,
+                Toppings = (List<PizzaTopping>)pizzaModel.Toppings,
+                TotalPrice = pizzaModel.TotalPrice
+            };
+            return result;
         }
     }
 }

@@ -8,6 +8,7 @@ namespace PizzaShopOnline.BAU.Site.Services
     {
         IEnumerable<HomePageViewModel> GetPizzaList();
         PizzaModel GetPizzaModel(int pizzaId);
-        PizzaModel UpdatePizza(PizzaModel pizzaModel);
+        SelectedPizzaViewModel UpdatePizza(SelectedPizzaViewModel selectedPizzaViewModel);
+        SelectedPizzaViewModel GetSelectedPizzaViewModel(int pizzaId);
     }
 }
