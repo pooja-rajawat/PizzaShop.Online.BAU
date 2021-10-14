@@ -1,4 +1,4 @@
-@model PizzaShopOnline.BAU.Site.Models.PizzaModel
+@model PizzaShopOnline.BAU.Site.ViewModels.SelectedPizzaViewModel
 
 <div class="container">
     <h1 class="text-center"> Modify pizza </h1>
@@ -33,18 +33,12 @@
                         @Html.ValidationMessageFor(model => model.Toppings, "", new { @class = "text-danger" })
                         @for (int i = 0; i < Model.Toppings.Count(); i++)
                         {
-                            @Html.Label("Toppings[" + i + "].ToppingType", Model.Toppings.ToList()[i].ToppingType.Name + "")
+                            @Html.Label($"Toppings[{i}].ToppingType", Model.Toppings[i].ToppingType.Name)
                             @:&nbsp;
-                            @Html.CheckBox("Toppings[" + i + "].IsSelected", Model.Toppings.ToList()[i].IsSelected)
-                            @Html.Hidden("Toppings[" + i + "].Price", Model.Toppings.ToList()[i].Price)
-                            @Html.Hidden("Toppings[" + i + "].ToppingType.Id", Model.Toppings.ToList()[i].ToppingType.Id)
-                            @Html.Hidden("Toppings[" + i + "].ToppingType.Name", Model.Toppings.ToList()[i].ToppingType.Name)
-
-
-@*                            @Html.Hidden("Toppings[" + i + "].ToppingType.Id", Model.Toppings.ToList()[i].ToppingType.Id)
-                            @Html.Hidden("Toppings[" + i + "].ToppingType.Name", Model.Toppings.ToList()[i].ToppingType.Name)
-*@
-
+                            @Html.CheckBox($"Toppings[{i}].IsSelected", Model.Toppings[i].IsSelected)
+                            @Html.Hidden($"Toppings[{i}].Price", Model.Toppings[i].Price)
+                            @Html.Hidden($"Toppings[{i}].ToppingType.Id", Model.Toppings[i].ToppingType.Id)
+                            @Html.Hidden($"Toppings[{i}].ToppingType.Name", Model.Toppings[i].ToppingType.Name)
                             <br />
                         }
                     </td>
@@ -63,7 +57,7 @@
                 <tr>
                     <td></td>
                     <td>
-                        <button type="button" class="btn btn-primary" onclick="location.href='@Url.Action("DeliveryForm","Delivery")'">Proceed to checkout page</button>
+                        @Html.ActionLink("Proceed to checkout page", "DeliveryForm", "Delivery", new { id = Model.Id }, new { @class = "btn btn-primary" })
                     </td>
                 </tr>
             </tbody>
