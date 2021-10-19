@@ -1,116 +1,70 @@
 ﻿
+@using PizzaShopOnline.BAU.Site.Models;
+
 @model PizzaShopOnline.BAU.Site.ViewModels.DeliveryPageViewModel;
-<link rel="stylesheet" href="~/css/site.css" />
 
 
+<div class="row" id="center">
 
-<div class="wrapperA">
-    <div class="partA">
-        <div class="wrapperB">
+    <div class="text-center">
+        <div class="header">
             <img src="@Model.PizzaImageUrl" alt="Selected Pizza Image" class="img" />
             <h2 class="content">@Model.PizzaName</h2>
+
         </div>
 
     </div>
 
 
-    
-    <div class="formm">
 
-        
+
+    <div class="formA">
+
+
         @using (Html.BeginForm())
         {
 
+            @Html.HiddenFor(m => m.PizzaImageUrl)
+            @Html.HiddenFor(m => m.PizzaName)
+
             <table cellpadding="2" cellspacing="2" border="0" class="table">
                 <tr class="table-group">
-                    <td class="label">@Html.LabelFor(m => m.Address, new { @class = "form-label" })</td>
-                    <td>@Html.TextBoxFor(m => m.Address, new { @class = "input" })</td>
+                    <td class="label">@Html.LabelFor(m => m.PizzaModelItems.Address, new { @class = "form-label" })</td>
+                    <td>@Html.TextBoxFor(m => m.PizzaModelItems.Address, new { @class = "input" })</td>
+                    <td>@Html.ValidationMessageFor(m => m.PizzaModelItems.Address, "", new { @class = "validation" })</td>
+
                 </tr>
+
+
+
+                <tr class="table-group">
+                    <td class="label">@Html.LabelFor(m => m.PizzaModelItems.Name, new { @class = "form-label" })</td>
+                    <td>@Html.TextBoxFor(m => m.PizzaModelItems.Name, new { @class = "input" })</td>
+                    <td>@Html.ValidationMessageFor(m => m.PizzaModelItems.Name, "", new { @class = "validation" })</td>
+
+                </tr>
+
+
+
+                <tr class="table-group">
+                    <td class="label">@Html.LabelFor(m => m.PizzaModelItems.Telephone, new { @class = "form-label" })</td>
+                    <td>@Html.TextBoxFor(m => m.PizzaModelItems.Telephone, " ", new { @class = "input" })</td>
+                    <td>@Html.ValidationMessageFor(m => m.PizzaModelItems.Telephone, "", new { @class = "validation" })</td>
+
+                </tr>
+
+
 
                 <tr class="table-group">
                     <td>&nbsp;</td>
-                    <td>@Html.ValidationMessageFor(m => m.Address, "", new { @class = "validation" })</td>
-                </tr>
-
-                <tr class="table-group mb-1">
-                    <td class="label">@Html.LabelFor(m => m.Name, new { @class = "form-label" })</td>
-                    <td>@Html.TextBoxFor(m => m.Name, new { @class = "input" })</td>
-                </tr>
-
-                <tr class="table-group">
-                    <td>&nbsp;</td>
-                    <td>@Html.ValidationMessageFor(m => m.Name, "", new { @class = "validation" })</td>
-                </tr>
-
-                <tr class="table-group">
-                    <td class="label">@Html.LabelFor(m => m.Telephone, new { @class = "form-label" })</td>
-                    <td>@Html.TextBoxFor(m => m.Telephone, new { @class = "input" , @value =""})</td>
-                </tr>
-
-                <tr class="table-group mb-1">
-                    <td>&nbsp;</td>
-                    <td>@Html.ValidationMessageFor(m => m.Telephone, "", new { @class = "validation" })</td>
-                </tr>
-
-                <tr class="table-group">
-                    <td>&nbsp;</td>
-                    <td colspan="2"><input type="submit" value="Submit" /></td>
+                    <td><input type="submit" value="Submit" /></td>
                 </tr>
             </table>
-            
         }
+
     </div>
 
-    
 </div>
-
-
-<!--
-
-<div class="formm">
-
-    @*
-    @using (Html.BeginForm())
-    {
-
-        <table cellpadding="2" cellspacing="2" border="0" class="table">
-            <tr class="table-group">
-                <td class="label">@Html.LabelFor(m => m.Address, new { @class = "form-label" })</td>
-                <td>@Html.TextBoxFor(m => m.Address, new { @class = "input" })</td>
-                <td>@Html.ValidationMessageFor(m => m.Address, "", new { @class = "validation" })</td>
-
-            </tr>
-
-            
-
-            <tr class="table-group">
-                <td class="label">@Html.LabelFor(m => m.Name, new { @class = "form-label" })</td>
-                <td>@Html.TextBoxFor(m => m.Name, new { @class = "input" })</td>
-                <td>@Html.ValidationMessageFor(m => m.Name, "", new { @class = "validation" })</td>
-
-            </tr>
-
-            
-
-            <tr class="table-group">
-                <td class="label">@Html.LabelFor(m => m.Telephone, new { @class = "form-label" })</td>
-                <td>@Html.TextBoxFor(m => m.Telephone, new { @class = "input" })</td>
-                <td>@Html.ValidationMessageFor(m => m.Telephone, "", new { @class = "validation" })</td>
-
-            </tr>
-
-            
-
-            <tr class="table-group">
-                <td>&nbsp;</td>
-                <td colspan="2"><input type="submit" value="Submit" /></td>
-            </tr>
-        </table>
-    }
-    *@
-</div>
-
--->
 
 
 
