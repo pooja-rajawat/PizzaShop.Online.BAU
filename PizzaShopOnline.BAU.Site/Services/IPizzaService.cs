@@ -3,10 +3,10 @@ using System.Collections.Generic;
 
 namespace PizzaShopOnline.BAU.Site.Services
 {
-    public interface IPizzaService
+    public interface IPizzaService 
     {
         IEnumerable<HomePageViewModel> GetPizzaList();
 
-        DeliveryPageViewModel GetPizzaModel(int id);
+        DeliveryPageViewModel GetDeliveryPageViewModel(int id);
     }
 }

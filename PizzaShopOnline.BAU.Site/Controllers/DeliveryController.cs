@@ -16,7 +16,7 @@ namespace PizzaShopOnline.BAU.Site.Controllers
         [HttpGet]
         public ActionResult DeliveryForm( int id)
         {             
-            var deliveryPizzaModel = _deliveryPizzaService.GetPizzaModel(id);
+            var deliveryPizzaModel = _deliveryPizzaService.GetDeliveryPageViewModel(id);
 
             return View(deliveryPizzaModel);
 

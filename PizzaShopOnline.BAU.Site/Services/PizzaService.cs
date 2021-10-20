@@ -28,11 +28,11 @@ namespace PizzaShopOnline.BAU.Site.Services
             return result;
         }    
          
-        public DeliveryPageViewModel GetPizzaModel(int id)
+        public DeliveryPageViewModel GetDeliveryPageViewModel(int id)
         {
             var deliveryPizzaModel = _pizzaRepository.GetPizzaModel(id);
 
-            var result = new DeliveryPageViewModel()
+            var result = new DeliveryPageViewModel
             {
                 PizzaImageUrl = deliveryPizzaModel.ImageUrl,
                 PizzaName = deliveryPizzaModel.Name

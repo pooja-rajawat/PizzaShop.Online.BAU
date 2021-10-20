@@ -126,7 +126,9 @@ body {
     width: 50%;
 }
 
-.text-center{
+.success-position{
+    height: 70vh;
     display: flex;
+    justify-content: center;
     align-items: center;
 }
