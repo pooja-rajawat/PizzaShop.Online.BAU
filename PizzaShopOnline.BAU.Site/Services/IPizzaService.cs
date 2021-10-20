@@ -6,5 +6,7 @@ namespace PizzaShopOnline.BAU.Site.Services
     public interface IPizzaService
     {
         IEnumerable<HomePageViewModel> GetPizzaList();
+
+        DeliveryPageViewModel GetPizzaModel(int id);
     }
 }

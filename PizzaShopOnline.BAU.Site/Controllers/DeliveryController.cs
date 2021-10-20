@@ -1,32 +1,25 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using PizzaShopOnline.BAU.Site.Models;
-using PizzaShopOnline.BAU.Site.Repositories;
 using PizzaShopOnline.BAU.Site.ViewModels;
+using PizzaShopOnline.BAU.Site.Services;
 
 namespace PizzaShopOnline.BAU.Site.Controllers
 {
     public class DeliveryController : Controller
     {
-        private readonly IPizzaRepository _pizzaRepository;
+        private readonly IPizzaService _deliveryPizzaService;
 
-        public DeliveryController(IPizzaRepository pizzaRepository)
+        public DeliveryController( IPizzaService deliveryPizzaService)
         {
-            _pizzaRepository = pizzaRepository;
+            _deliveryPizzaService = deliveryPizzaService;
         }
 
         [HttpGet]
         public ActionResult DeliveryForm( int id)
-        {
-                
-                PizzaModel deliveryPizzaModel = _pizzaRepository.GetPizzaModel(id);
+        {             
+            var deliveryPizzaModel = _deliveryPizzaService.GetPizzaModel(id);
 
-                DeliveryPageViewModel deliveryPage = new DeliveryPageViewModel()
-                { 
-                    PizzaImageUrl = deliveryPizzaModel.ImageUrl,
-                    PizzaName = deliveryPizzaModel.Name
-                };
-                
-                return View(deliveryPage);
+            return View(deliveryPizzaModel);
+
         }
 
         [HttpPost]

@@ -82,14 +82,6 @@ body {
     margin-top: 70px;
 }
 
-.partA{
-    text-align: center;
-} 
-
-h2.content {
-    margin: 15px 0;
-}
-
 .img {
     width: 250px;
     height: 230px;
@@ -102,7 +94,6 @@ h2.content {
 .formA {
     width: 800px;
     margin-left: 100px;
-    /*background-color: lightgray;*/
     padding: 20px 15px;
 }
 
@@ -135,8 +126,7 @@ h2.content {
     width: 50%;
 }
 
-.text-danger {
-    font-size: 15px;
+.text-center{
+    display: flex;
+    align-items: center;
 }
-
-

@@ -1,8 +1,5 @@
-﻿
-@using PizzaShopOnline.BAU.Site.Models;
-
-@model PizzaShopOnline.BAU.Site.ViewModels.DeliveryPageViewModel;
-
+﻿@model PizzaShopOnline.BAU.Site.ViewModels.DeliveryPageViewModel;
+ 
 
 <div class="row" id="center">
 
@@ -14,8 +11,6 @@
         </div>
 
     </div>
-
-
 
 
     <div class="formA">
@@ -36,7 +31,6 @@
                 </tr>
 
 
-
                 <tr class="table-group">
                     <td class="label">@Html.LabelFor(m => m.PizzaModelItems.Name, new { @class = "form-label" })</td>
                     <td>@Html.TextBoxFor(m => m.PizzaModelItems.Name, new { @class = "input" })</td>
@@ -45,14 +39,12 @@
                 </tr>
 
 
-
                 <tr class="table-group">
                     <td class="label">@Html.LabelFor(m => m.PizzaModelItems.Telephone, new { @class = "form-label" })</td>
                     <td>@Html.TextBoxFor(m => m.PizzaModelItems.Telephone, " ", new { @class = "input" })</td>
                     <td>@Html.ValidationMessageFor(m => m.PizzaModelItems.Telephone, "", new { @class = "validation" })</td>
 
                 </tr>
-
 
 
                 <tr class="table-group">
