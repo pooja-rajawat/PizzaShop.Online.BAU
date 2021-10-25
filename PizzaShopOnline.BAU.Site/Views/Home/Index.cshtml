@@ -13,11 +13,16 @@
         <div class="col">
             <div class="card" style="width: 18rem;">
                 <p></p>
-                <img src="@item.ImageUrl" alt="Pizza Pic" />
-                <div class="card-body">
-                    <h5 class="card-title"> @Html.DisplayFor(model => item.Name)   </h5>
-                    <br />
-                </div>
+
+                <a href="@Url.Action("SelectedPizza", "Home", new { Id = item.PizzaId })">
+                    <img src="@item.ImageUrl" alt="Pizza Pic" /> 
+                    </a>
+                  
+                    <div class="card-body">
+                        <h5 class="card-title"> @Html.DisplayFor(model => item.Name)   </h5>
+                      
+                          <br />
+                    </div>
             </div>
         </div>
         }
