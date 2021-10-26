@@ -1,27 +1,43 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using PizzaShopOnline.BAU.Site.Models;
+using PizzaShopOnline.BAU.Site.ViewModels;
+using PizzaShopOnline.BAU.Site.Services;
 
 namespace PizzaShopOnline.BAU.Site.Controllers
 {
     public class DeliveryController : Controller
     {
-        [HttpGet]
-        public ActionResult DeliveryForm()
+        private readonly IPizzaService _deliveryPizzaService;
+
+        public DeliveryController( IPizzaService deliveryPizzaService)
         {
-            return View();
+            _deliveryPizzaService = deliveryPizzaService;
+        }
+
+        [HttpGet]
+        public ActionResult DeliveryForm( int id)
+        {             
+            var deliveryPizzaModel = _deliveryPizzaService.GetDeliveryPageViewModel(id);
+
+            return View(deliveryPizzaModel);
+
         }
 
         [HttpPost]
-        public ActionResult DeliveryForm(Delivery account)
+        public ActionResult DeliveryForm( DeliveryPageViewModel account)
         {
-            if (ModelState.IsValid)
-            {
-                ViewBag.account = account;
-                return View("Success");
+            if (!ModelState.IsValid)
+            {            
+                return View(account);
             }
 
-            return View("DeliveryForm");
+            return RedirectToAction("Success","Delivery");
+           
         }
 
+        public ActionResult Success()
+        {
+            return View();
+        }
+        
     }
 }

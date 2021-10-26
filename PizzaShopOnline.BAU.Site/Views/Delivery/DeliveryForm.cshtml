@@ -1,36 +1,62 @@
-﻿@model PizzaShopOnline.BAU.Site.Models.Delivery; 
+﻿@model PizzaShopOnline.BAU.Site.ViewModels.DeliveryPageViewModel;
+ 
 
-    <div class="form">
+<div class="row" id="center">
 
-        @using (Html.BeginForm("DeliveryForm", "Delivery"))
+    <div class="center">
+        <div class="header">
+            <img src="@Model.PizzaImageUrl" alt="Selected Pizza Image" class="img" />
+            <h2 class="content">@Model.PizzaName</h2>
+
+        </div>
+
+    </div>
+
+
+    <div class="formA">
+
+
+        @using (Html.BeginForm())
         {
 
-            <div class="wrapper">
+            @Html.HiddenFor(m => m.PizzaImageUrl)
+            @Html.HiddenFor(m => m.PizzaName)
 
-                <h2 class="heading">Delivery Address Page</h2>
+            <table cellpadding="2" cellspacing="2" border="0" class="table">
+                <tr class="table-group">
+                    <td>@Html.LabelFor(m => m.PizzaModelItems.Address, new { @class = "form-label" })</td>
+                    <td>@Html.TextBoxFor(m => m.PizzaModelItems.Address, new { @class = "input" })</td>
+                    <td>@Html.ValidationMessageFor(m => m.PizzaModelItems.Address, "", new { @class = "validation" })</td>
 
-                <div class="form-control">
-                    <label for="Address" class="label">Address</label>
-                    @Html.TextBoxFor(m => m.Address, "", new { @class = "input" })
-                    @Html.ValidationMessageFor(m => m.Address, "", new { @class = "error" })
-                </div>
+                </tr>
 
-                <div class="form-control">
-                    <label for="Name" class="label">Name</label>
-                    @Html.TextBoxFor(m => m.Name, "", new { @class = "input" })
-                    @Html.ValidationMessageFor(m => m.Name, "", new { @class = "error" })
-                </div>
 
-                <div class="form-control">
-                    <label for="Telephone" class="label">Telephone</label>
-                    @Html.TextBoxFor(m => m.Telephone, "", new { @class = "input" })
-                    @Html.ValidationMessageFor(m => m.Telephone, "", new { @class = "error" })
-                </div>
+                <tr class="table-group">
+                    <td>@Html.LabelFor(m => m.PizzaModelItems.Name, new { @class = "form-label" })</td>
+                    <td>@Html.TextBoxFor(m => m.PizzaModelItems.Name, new { @class = "input" })</td>
+                    <td>@Html.ValidationMessageFor(m => m.PizzaModelItems.Name, "", new { @class = "validation" })</td>
 
-                <input type="submit" value="Submit" class="btn btn-primary submit" />
+                </tr>
 
-            </div>
+
+                <tr class="table-group">
+                    <td>@Html.LabelFor(m => m.PizzaModelItems.Telephone, new { @class = "form-label" })</td>
+                    <td>@Html.TextBoxFor(m => m.PizzaModelItems.Telephone, " ", new { @class = "input" })</td>
+                    <td>@Html.ValidationMessageFor(m => m.PizzaModelItems.Telephone, "", new { @class = "validation" })</td>
+
+                </tr>
+
+
+                <tr class="table-group">
+                    <td>&nbsp;</td>
+                    <td><input type="submit" value="Submit" /></td>
+                </tr>
+            </table>
         }
+
     </div>
+
+</div>
+
 
 
